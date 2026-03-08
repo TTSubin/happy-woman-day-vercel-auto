@@ -3,11 +3,34 @@ var $win = $(window);
 var clientWidth = $win.width();
 var clientHeight = $win.height();
 
+function scaleWrapToFit() {
+    var vw = window.innerWidth || document.documentElement.clientWidth;
+    var WRAP_W = 1100;
+    var WRAP_H = 680;
+    var $wrap = $('#wrap');
+    var $main = $('#main');
+
+    if (vw < WRAP_W) {
+        var scale = vw / WRAP_W;
+        $wrap.css('transform', 'scale(' + scale + ')');
+        $main.css('height', Math.round(WRAP_H * scale) + 'px');
+    } else {
+        $wrap.css('transform', '');
+        $main.css('height', '');
+    }
+}
+
+$(document).ready(function() {
+    scaleWrapToFit();
+});
+
 $(window).resize(function() {
     var newWidth = $win.width();
     var newHeight = $win.height();
+    scaleWrapToFit();
     if (newWidth != clientWidth && newHeight != clientHeight) {
-        location.replace(location);
+        clientWidth = newWidth;
+        clientHeight = newHeight;
     }
 });
 

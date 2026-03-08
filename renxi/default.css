@@ -1,4 +1,4 @@
-body{margin:0;padding:0;background:#ffe;font-size:14px;font-family:'微软雅黑','宋体',sans-serif;color:#231F20;overflow:auto}
+body{margin:0;padding:0;background:#ffe;font-size:14px;font-family:'微软雅黑','宋体',sans-serif;color:#231F20;overflow:auto;overflow-x:hidden}
 a {color:#000;font-size:14px;}
 #main{width:100%;}
 #wrap{position:relative;margin:0 auto;width:1100px;height:680px;margin-top:10px;}
@@ -130,20 +130,37 @@ a {color:#000;font-size:14px;}
     height: auto;
 }
 
-@media (max-width: 768px) {
-    #wrap {
-        width: 100%;
-        height: auto;
-        min-height: 680px;
+/* ── Mobile: scale toàn bộ #wrap xuống vừa màn hình ── */
+#wrap {
+    transform-origin: top left;
+}
+
+@media (max-width: 1100px) {
+    body {
+        overflow-x: hidden;
     }
 
-    #canvas {
-        width: 100%;
-        height: auto;
+    #main {
+        overflow: hidden;
+        /* chiều cao sẽ được JS cập nhật theo scale */
     }
 
-    #mystery-gift-btn {
-        left: 68%;
-        top: 590px;
+    /* Gallery popup giữ responsive riêng */
+    .gift-gallery-panel {
+        width: calc(100% - 20px);
+        margin: 16px auto;
+        max-height: calc(100vh - 32px);
+        border-radius: 12px;
+        padding: 14px;
+    }
+
+    .gift-gallery-grid {
+        grid-template-columns: repeat(auto-fit, minmax(130px, 170px));
+        gap: 10px;
+    }
+
+    .gift-gallery-close {
+        font-size: 13px;
+        padding: 7px 12px;
     }
 }
