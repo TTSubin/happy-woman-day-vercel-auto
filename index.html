@@ -118,8 +118,9 @@
 
         canvas.click(function(e) {
             var offset = canvas.offset(), x, y;
-            var s = window.innerWidth < 1100 ? window.innerWidth / 1100 : 1;
-            x = (e.pageX - offset.left) / s;
+            var s = window._wrapScale || 1;
+            var tx = window._wrapTranslateX || 0;
+            x = (e.pageX - offset.left - tx) / s;
             y = (e.pageY - offset.top) / s;
             if (seed.hover(x, y)) {
                 hold = 0;
@@ -129,8 +130,9 @@
             }
         }).mousemove(function(e){
             var offset = canvas.offset(), x, y;
-            var s = window.innerWidth < 1100 ? window.innerWidth / 1100 : 1;
-            x = (e.pageX - offset.left) / s;
+            var s = window._wrapScale || 1;
+            var tx = window._wrapTranslateX || 0;
+            x = (e.pageX - offset.left - tx) / s;
             y = (e.pageY - offset.top) / s;
             canvas.toggleClass('hand', seed.hover(x, y));
         });
@@ -218,9 +220,19 @@
             $await(flowAnimate());
             $await(moveAnimate());
 
+            var isMobile = window.innerWidth < 1100;
+            if (isMobile) {
+                canvas.fadeOut(700);
+                $await(Jscex.Async.sleep(400));
+                scaleWrapToFit();
+                $await(Jscex.Async.sleep(300));
+            }
+
             textAnimate().start();
 
-            $await(jumpAnimate());
+            if (!isMobile) {
+                $await(jumpAnimate());
+            }
         }));
 
         runAsync().start();

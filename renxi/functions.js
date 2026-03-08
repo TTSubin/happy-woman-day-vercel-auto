@@ -3,31 +3,61 @@ var $win = $(window);
 var clientWidth = $win.width();
 var clientHeight = $win.height();
 
+// Current scale & translateX being applied to #wrap (used by click handler)
+window._wrapScale = 1;
+window._wrapTranslateX = 0;
+
+// Mobile tree phase: scale to fill full viewport height, center horizontally
+function scaleWrapFullscreen() {
+    var vw = window.innerWidth || document.documentElement.clientWidth;
+    var vh = window.innerHeight || document.documentElement.clientHeight;
+    var WRAP_W = 1100;
+    var WRAP_H = 680;
+    var scale = vh / WRAP_H;
+    var tx = vw / 2 - (WRAP_W / 2) * scale;
+    window._wrapScale = scale;
+    window._wrapTranslateX = tx;
+    var $wrap = $('#wrap');
+    var $main = $('#main');
+    $wrap.css('transform', 'translateX(' + tx + 'px) scale(' + scale + ')');
+    $main.css('height', vh + 'px');
+    $('body').css('overflow', 'hidden');
+}
+
+// Text phase: scale to fit viewport width
 function scaleWrapToFit() {
     var vw = window.innerWidth || document.documentElement.clientWidth;
     var WRAP_W = 1100;
     var WRAP_H = 680;
     var $wrap = $('#wrap');
     var $main = $('#main');
-
     if (vw < WRAP_W) {
         var scale = vw / WRAP_W;
+        window._wrapScale = scale;
+        window._wrapTranslateX = 0;
         $wrap.css('transform', 'scale(' + scale + ')');
         $main.css('height', Math.round(WRAP_H * scale) + 'px');
+        $('body').css('overflow', 'auto');
     } else {
+        window._wrapScale = 1;
+        window._wrapTranslateX = 0;
         $wrap.css('transform', '');
         $main.css('height', '');
+        $('body').css('overflow', 'auto');
     }
 }
 
 $(document).ready(function() {
-    scaleWrapToFit();
+    if (window.innerWidth < 1100) {
+        scaleWrapFullscreen();
+    } else {
+        scaleWrapToFit();
+    }
 });
 
 $(window).resize(function() {
     var newWidth = $win.width();
     var newHeight = $win.height();
-    scaleWrapToFit();
     if (newWidth != clientWidth && newHeight != clientHeight) {
         clientWidth = newWidth;
         clientHeight = newHeight;
