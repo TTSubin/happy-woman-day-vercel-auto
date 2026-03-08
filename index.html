@@ -119,8 +119,7 @@
         canvas.click(function(e) {
             var offset = canvas.offset(), x, y;
             var s = window._wrapScale || 1;
-            var tx = window._wrapTranslateX || 0;
-            x = (e.pageX - offset.left - tx) / s;
+            x = (e.pageX - offset.left) / s;
             y = (e.pageY - offset.top) / s;
             if (seed.hover(x, y)) {
                 hold = 0;
@@ -131,8 +130,7 @@
         }).mousemove(function(e){
             var offset = canvas.offset(), x, y;
             var s = window._wrapScale || 1;
-            var tx = window._wrapTranslateX || 0;
-            x = (e.pageX - offset.left - tx) / s;
+            x = (e.pageX - offset.left) / s;
             y = (e.pageY - offset.top) / s;
             canvas.toggleClass('hand', seed.hover(x, y));
         });
