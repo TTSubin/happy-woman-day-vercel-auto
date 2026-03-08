@@ -26,7 +26,6 @@
 
 
         <div id="main">
-            <div id="error">Trình duyệt của bạn không được hỗ trợ. Để được hỗ trợ liên hệ https://www.facebook.com/QuyenGiaSuJS. Hoặc sử dụng (<a href="http://www.google.cn/chrome">Chrome</a>) và (<a href="http://firefox.com/download/">Firefox</a>)</div>
              <div id="wrap">
                 <div id="text" style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif ;">
 			        <div id="code">
@@ -119,8 +118,9 @@
 
         canvas.click(function(e) {
             var offset = canvas.offset(), x, y;
-            x = e.pageX - offset.left;
-            y = e.pageY - offset.top;
+            var s = window.innerWidth < 1100 ? window.innerWidth / 1100 : 1;
+            x = (e.pageX - offset.left) / s;
+            y = (e.pageY - offset.top) / s;
             if (seed.hover(x, y)) {
                 hold = 0;
                 canvas.unbind("click");
@@ -129,8 +129,9 @@
             }
         }).mousemove(function(e){
             var offset = canvas.offset(), x, y;
-            x = e.pageX - offset.left;
-            y = e.pageY - offset.top;
+            var s = window.innerWidth < 1100 ? window.innerWidth / 1100 : 1;
+            x = (e.pageX - offset.left) / s;
+            y = (e.pageY - offset.top) / s;
             canvas.toggleClass('hand', seed.hover(x, y));
         });
 
