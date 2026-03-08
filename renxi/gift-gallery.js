@@ -1,5 +1,6 @@
 (function () {
     var galleryFolder = "gift-images/";
+    var galleryManifest = "gift-images/manifest.json";
     var imagePattern = /\.(jpg|jpeg|png|gif|webp|bmp|svg)$/i;
 
     function normalizePath(href) {
@@ -21,7 +22,35 @@
     }
 
     function fetchAllGalleryImages() {
-        return fetch(galleryFolder)
+        return fetch(galleryManifest)
+            .then(function (response) {
+                if (!response.ok) {
+                    throw new Error("Cannot read manifest");
+                }
+                return response.json();
+            })
+            .then(function (items) {
+                var results = [];
+
+                if (!Array.isArray(items)) {
+                    throw new Error("Invalid manifest format");
+                }
+
+                for (var i = 0; i < items.length; i++) {
+                    var path = normalizePath(items[i]);
+                    if (imagePattern.test(path)) {
+                        results.push(path);
+                    }
+                }
+
+                results.sort(function (a, b) {
+                    return a.localeCompare(b, undefined, { numeric: true, sensitivity: "base" });
+                });
+
+                return results;
+            })
+            .catch(function () {
+                return fetch(galleryFolder)
             .then(function (response) {
                 if (!response.ok) {
                     throw new Error("Cannot read folder listing");
@@ -49,12 +78,9 @@
                 return results;
             })
             .catch(function () {
-                // Fallback if server doesn't expose directory listing.
-                return [
-                    "gift-images/01.JPG",
-                    "gift-images/02.JPG",
-                    "gift-images/03.JPG"
-                ];
+                // Final fallback for environments without directory listing.
+                return [];
+            });
             });
     }
 
