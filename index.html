@@ -12,11 +12,13 @@
 		<script  type="text/javascript" src="./renxi/jscex-async-powerpack.min.js"></script>
 		<script  type="text/javascript" src="./renxi/functions.js" charset="utf-8"></script>
         <script  type="text/javascript" src="./renxi/love.js" charset="utf-8"></script>
+        <script  type="text/javascript" src="./renxi/falling-images.js" charset="utf-8"></script>
+        <script  type="text/javascript" src="./renxi/gift-gallery.js" charset="utf-8"></script>
 
 </head>
     <body>
 
-			<audio autoplay="autoplay" >
+			<audio id="bgMusic" autoplay="autoplay" loop preload="auto">
 					<source src="music/nhac.mp3" type="audio/mp3" />
             </audio>
 
@@ -28,13 +30,13 @@
                 <div id="text" style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif ;">
 			        <div id="code">
 			      <font color="#0000FF" >
-                        <span class="say">Chào các bạn!</span><br>
+                        <span class="say">Chúc bé Bu của anh!</span><br>
 						<span class="say"> </span><br>
-						<span class="say">Ngày 8/3 chúc một nửa thế giới luôn thành công trong cuộc sống!</span><br>
-						<span class="say">Chúc bạn luôn duyên dáng và xinh đẹp trong mắt một nửa thế giới còn lại.</span><br>
-						<span class="say">Kính chúc "một nửa" của nhân loại vui vẻ, hạnh phúc bên người thân yêu</span><br>
+						<span class="say">Ngày 8/3 chúc bé Bu của anh luôn thành công trong cuộc sống!</span><br>
+						<span class="say">Chúc bé Bu luôn hạnh phúc và thành công trên con đường mà em đã chọn và nhớ rằng em luôn có anh ở đằng sau để hỗ trợ và che chắn cho em những lúc em cần thế nên là em cứ tự tin vững bước mà tiến lên phía trước nhé</span><br>
+						<span class="say">Hy vọng là tụi mình sẽ cùng nhau đón thêm nhiều ngày lễ và ngày càng hạnh phúc hơn nha :3</span><br>
                         <span class="say"><span class="space"><img src="image/tym.png" alt=""><br>
-                        <span class="say"><span class="space"></span> --Happy Womman's Day--</span>
+                        <span class="say"><span class="space"></span> Anh yêu em nhiều lắm, chúc mừng ngày Quốc tế phụ nữ 8/3!</span>
                         </font></p>
       </div>
                 </div>
@@ -44,8 +46,18 @@
                   <div id="clock"></div>
               </div>
                 <canvas id="canvas" width="1100" height="680"></canvas>
+                <button id="mystery-gift-btn" type="button">Món quà bí ẩn</button>
             </div>
 
+        </div>
+
+        <div id="gift-gallery-modal" class="gift-gallery-modal" aria-hidden="true">
+            <div class="gift-gallery-backdrop" data-close-gallery="true"></div>
+            <div class="gift-gallery-panel" role="dialog" aria-modal="true" aria-label="Bộ sưu tập ảnh dọc">
+                <button type="button" class="gift-gallery-close" data-close-gallery="true">Đóng</button>
+                <h3>Bộ sưu tập ảnh dọc</h3>
+                <div id="gift-gallery-grid" class="gift-gallery-grid"></div>
+            </div>
         </div>
 
     <script>
@@ -178,7 +190,7 @@
 
         var textAnimate = eval(Jscex.compile("async", function () {
 		    var together = new Date();
-		    together.setFullYear(2018,2 , 8);
+		    together.setFullYear(2025,9 , 14);
 		    together.setHours(0);
 		    together.setMinutes(0);
 		    together.setSeconds(0);
@@ -186,7 +198,11 @@
 
 
 
-		    $("#code").show().typewriter();
+		    var codeBlock = $("#code");
+		    codeBlock.one("typewriter:done", function () {
+		        $("#mystery-gift-btn").addClass("show");
+		    });
+		    codeBlock.show().typewriter();
             $("#clock-box").fadeIn(500);
             while (true) {
                 timeElapse(together);
@@ -208,8 +224,30 @@
         runAsync().start();
     })();
     </script>
-<div style="text-align:center;margin:50px 0; font:normal 14px/24px 'MicroSoft YaHei';">
-<p>Contact: <a href="https://www.facebook.com/QuyenGiaSuJS" target="_blank">Quyen Dang</a></p>
-</div>
+
+<script>
+// Đảm bảo nhạc luôn phát được
+document.addEventListener('DOMContentLoaded', function() {
+    var bgMusic = document.getElementById('bgMusic');
+    
+    // Thử phát nhạc ngay
+    var playPromise = bgMusic.play();
+    
+    if (playPromise !== undefined) {
+        playPromise.catch(function() {
+            // Nếu autoplay bị chặn, phát khi user click vào page
+            document.body.addEventListener('click', function() {
+                bgMusic.play();
+            }, { once: true });
+        });
+    }
+    
+    // Đảm bảo nhạc không bị dừng
+    bgMusic.addEventListener('ended', function() {
+        this.currentTime = 0;
+        this.play();
+    });
+});
+</script>
 </body>
 </html>

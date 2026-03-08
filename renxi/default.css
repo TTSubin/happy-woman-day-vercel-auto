@@ -13,3 +13,137 @@ a {color:#000;font-size:14px;}
 .hand{cursor:pointer;}
 .say{margin-left:5px;}
 .space{margin-right:150px;}
+
+/* Falling images effect */
+.falling-image {
+    position: fixed;
+    top: -100px;
+    z-index: 9999;
+    pointer-events: none;
+    animation: fall linear forwards;
+}
+
+@keyframes fall {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0.3;
+    }
+}
+
+#mystery-gift-btn {
+    position: absolute;
+    left: 900px;
+    top: 630px;
+    transform: translateX(-50%);
+    z-index: 20;
+    display: none;
+    opacity: 0;
+    border: 0;
+    border-radius: 999px;
+    padding: 10px 18px;
+    background: #d83b62;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(216, 59, 98, 0.35);
+}
+
+#mystery-gift-btn.show {
+    display: inline-block;
+    opacity: 1;
+    transition: opacity 0.4s ease;
+}
+
+#mystery-gift-btn:hover {
+    background: #c02750;
+}
+
+.gift-gallery-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    display: none;
+}
+
+.gift-gallery-modal.open {
+    display: block;
+}
+
+.gift-gallery-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+}
+
+.gift-gallery-panel {
+    position: relative;
+    z-index: 1;
+    width: min(900px, calc(100% - 32px));
+    margin: 40px auto;
+    max-height: calc(100vh - 80px);
+    overflow: auto;
+    border-radius: 16px;
+    padding: 18px;
+    background: #fff7fb;
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.25);
+}
+
+.gift-gallery-panel h3 {
+    margin: 6px 0 16px;
+    color: #8a2140;
+}
+
+.gift-gallery-close {
+    float: right;
+    border: 0;
+    border-radius: 10px;
+    background: #f3d5e0;
+    color: #7c1e39;
+    font-weight: 700;
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+.gift-gallery-grid {
+    clear: both;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 220px));
+    justify-content: center;
+    gap: 14px;
+}
+
+.gift-gallery-card {
+    border-radius: 12px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.14);
+}
+
+.gift-gallery-card img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+@media (max-width: 768px) {
+    #wrap {
+        width: 100%;
+        height: auto;
+        min-height: 680px;
+    }
+
+    #canvas {
+        width: 100%;
+        height: auto;
+    }
+
+    #mystery-gift-btn {
+        left: 68%;
+        top: 590px;
+    }
+}
