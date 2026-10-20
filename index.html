@@ -1,9 +1,11 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xml:lang="en" xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 		<link rel="icon" type="image/png" href="image/favicon.ico">
 		<title>Quốc tế phụ nữ</title>
         <link type="text/css" rel="stylesheet" href="./renxi/default.css">
+        <link rel="stylesheet" href="./renxi/letter.css">
+        <script src="./renxi/letter.js" defer></script>
 		<script  type="text/javascript" src="./renxi/jquery.min.js"></script>
 		<script  type="text/javascript" src="./renxi/jscex.min.js"></script>
 		<script  type="text/javascript" src="./renxi/jscex-parser.js"></script>
@@ -18,6 +20,46 @@
 
 </head>
     <body>
+        <button id="letter-envelope" class="letter-envelope" type="button" aria-label="Mở thư chúc mừng 20 tháng 10" aria-haspopup="dialog" aria-controls="love-letter">
+            <span class="envelope-body" aria-hidden="true">
+                <span class="envelope-note">Gửi bé Bu</span>
+                <span class="envelope-flap"></span>
+                <span class="envelope-seal">20/10</span>
+            </span>
+            <span class="envelope-caption">Có thư gửi riêng cho em</span>
+        </button>
+
+        <dialog id="love-letter" class="love-letter" aria-labelledby="letter-title">
+            <article class="letter-paper">
+                <form method="dialog" class="letter-close-form">
+                    <button class="letter-close" type="submit" aria-label="Đóng thư">Đóng thư</button>
+                </form>
+                <p class="letter-date"><time datetime="2026-10-20">Ngày 20 tháng 10 năm 2026</time></p>
+                <h1 id="letter-title" tabindex="-1">Gửi bé Bu của anh,</h1>
+                <p>Hôm nay là 20/10, anh có một lá thư nhỏ gửi đến cô gái mà anh thương nhiều nhất.</p>
+                <p>Chúc mừng ngày Phụ nữ Việt Nam, bé Bu của anh! Chúc em luôn khỏe mạnh, xinh đẹp, cười thật nhiều và có thật nhiều niềm vui. Mong những điều em đang cố gắng từng ngày sẽ dần trở thành hiện thực, và em sẽ luôn tự tin bước đi trên con đường mình đã chọn.</p>
+                <p>Cảm ơn em vì đã đến bên anh, vì những quan tâm nhỏ xíu và vì đã làm những ngày bình thường của anh trở nên đặc biệt. Có em trong cuộc sống là một điều anh luôn trân trọng.</p>
+                <p>Nay em đã trải qua một ngày 20/10 bận rộn lắm ròi, nếu em thấy mệt thì cứ cho mình nghỉ một chút nhé. Em không cần lúc nào cũng phải mạnh mẽ đâu, vì vẫn luôn có anh ở đây, sẵn sàng nghe em kể chuyện, cùng em vượt qua những chuyện khó và ôm em khi em cần.</p>
+                <p>Vậy là tụi mình đã cùng nhau kỷ niệm 20/10 được hai lần ròi đó, bé Bu à. Anh vui vì ngày đặc biệt này lại có em ở bên, và mong tụi mình sẽ còn cùng nhau đón thêm thật nhiều ngày 20/10 nữa, cùng tạo thêm nhiều kỷ niệm và thương nhau nhiều hơn mỗi ngày. Hôm nay và cả những ngày sau, mong bé Bu luôn cảm nhận được rằng em được yêu thương rất nhiều.</p>
+                <p class="letter-wish">Chúc bé Bu một ngày 20/10 thật hạnh phúc.<br>Anh yêu em nhiều lắm!</p>
+                <p class="letter-signature">Thương em,<br><strong>Anh của bé Bu</strong></p>
+                <section class="letter-receipt" aria-label="Ký nhận thư">
+                    <div class="receipt-action">
+                        <p>Đọc xong ròi thì ký nhận cho anh nhé.</p>
+                        <button id="letter-sign" class="letter-sign" type="button">Ký nhận thư</button>
+                        <p id="receipt-status" class="receipt-status" role="status" aria-live="polite"></p>
+                    </div>
+                    <div class="receipt-stamp-space">
+                        <div id="receipt-stamp" class="receipt-stamp" hidden aria-hidden="true">
+                            <span class="stamp-label">XÁC NHẬN THƯ</span>
+                            <strong>ĐÃ NHẬN</strong>
+                            <span class="stamp-signature">Bé Bu</span>
+                            <span class="stamp-date">20 / 10 / 2026</span>
+                        </div>
+                    </div>
+                </section>
+            </article>
+        </dialog>
 
 			<audio id="bgMusic" autoplay="autoplay" loop preload="auto">
 					<source src="music/Perfect.mp3" type="audio/mp3" />

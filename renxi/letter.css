@@ -1,0 +1,195 @@
+/* Kept outside #wrap so the letter stays readable at every canvas scale. */
+.letter-envelope {
+    position: fixed;
+    top: max(22px, env(safe-area-inset-top));
+    right: max(24px, env(safe-area-inset-right));
+    z-index: 10001;
+    width: 184px;
+    padding: 12px;
+    border: 0;
+    background: transparent;
+    color: #842c46;
+    cursor: pointer;
+    animation: letter-delivery 1.8s .35s both;
+    -webkit-tap-highlight-color: transparent;
+}
+.envelope-body {
+    position: relative;
+    display: block;
+    height: 104px;
+    border-radius: 4px 4px 10px 10px;
+    background: #f2b7c6;
+    box-shadow: 0 12px 24px #842c4626;
+    isolation: isolate;
+    perspective: 600px;
+}
+.envelope-body::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: #f8cdda;
+    clip-path: polygon(0 0, 50% 60%, 100% 0, 100% 100%, 0 100%);
+    border-radius: inherit;
+    z-index: 2;
+}
+.envelope-note {
+    position: absolute;
+    inset: 8px 14px 12px;
+    padding-top: 12px;
+    background: #fffaf0;
+    font: italic 18px Arial, 'Segoe UI', sans-serif;
+    transition: transform .4s;
+}
+.envelope-flap {
+    position: absolute;
+    inset: 0;
+    background: #eaa2b5;
+    clip-path: polygon(0 0, 100% 0, 50% 57%);
+    transform-origin: top;
+    transition: transform .4s;
+    z-index: 3;
+}
+.envelope-seal {
+    position: absolute;
+    left: calc(50% - 21px);
+    top: 36px;
+    z-index: 4;
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: #9d3653;
+    color: #fffaf0;
+    font: bold 12px Arial, 'Segoe UI', sans-serif;
+    box-shadow: 0 2px 0 #73243b;
+}
+.envelope-caption {
+    display: block;
+    margin-top: 14px;
+    font: 600 13px/1.5 Arial, 'Segoe UI', sans-serif;
+}
+.letter-envelope:hover .envelope-flap,
+.letter-envelope:focus-visible .envelope-flap { transform: rotateX(155deg); }
+.letter-envelope:hover .envelope-note,
+.letter-envelope:focus-visible .envelope-note { transform: translateY(-14px); }
+.letter-envelope:focus-visible,
+.letter-close:focus-visible { outline: 3px solid #9d3653; outline-offset: 5px; }
+.love-letter {
+    box-sizing: border-box;
+    width: min(660px, calc(100% - 32px));
+    max-height: calc(100vh - 48px);
+    max-height: calc(100dvh - 48px);
+    margin: auto;
+    padding: 0;
+    border: 1px solid #e5c9b6;
+    border-radius: 5px;
+    background: #fffaf0;
+    color: #593f36;
+    box-shadow: 0 24px 80px #38202240;
+    overscroll-behavior: contain;
+}
+.love-letter::backdrop { background: #3e253566; backdrop-filter: blur(5px); }
+.love-letter[open] { animation: letter-unfold .55s ease-out; }
+.letter-paper {
+    padding: 26px clamp(24px, 7vw, 64px) 40px;
+    background: repeating-linear-gradient(transparent 0 31px, #b8977e0b 31px 32px);
+    font: 17px/1.85 Arial, 'Segoe UI', sans-serif;
+}
+.letter-close-form { display: flex; justify-content: flex-end; margin: 0 0 22px; }
+.letter-close {
+    min-height: 44px;
+    padding: 8px 14px;
+    border: 1px solid #dbc0b2;
+    border-radius: 5px;
+    background: #fffaf0;
+    color: #842c46;
+    cursor: pointer;
+    font: 14px Arial, 'Segoe UI', sans-serif;
+}
+.letter-close:hover { background: #f8e7e5; }
+.letter-date { font-size: 13px; letter-spacing: .04em; color: #806354; }
+.letter-paper h1 { margin: 18px 0 24px; font-size: clamp(27px, 6vw, 36px); font-weight: normal; line-height: 1.3; color: #842c46; }
+.letter-paper h1:focus { outline: none; }
+.letter-paper p { margin: 0 0 20px; }
+.letter-paper .letter-wish { color: #842c46; }
+.letter-signature { text-align: right; font-style: italic; }
+.letter-receipt {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    margin-top: 32px;
+    padding-top: 26px;
+    border-top: 1px solid #e5c9b6;
+}
+.receipt-action { flex: 1; min-width: 0; }
+.receipt-action p { font-size: 14px; line-height: 1.65; margin-bottom: 12px; }
+.letter-sign {
+    min-height: 44px;
+    padding: 12px 20px;
+    border: 1px solid #9d3653;
+    border-radius: 5px;
+    background: #9d3653;
+    color: #fffaf0;
+    font: 600 15px Arial, 'Segoe UI', sans-serif;
+    cursor: pointer;
+}
+.letter-sign:hover:not(:disabled) { background: #842c46; }
+.letter-sign:focus-visible { outline: 3px solid #9d3653; outline-offset: 4px; }
+.letter-sign:disabled { background: #f4e6df; border-color: #dbc0b2; color: #76594c; cursor: default; }
+.receipt-action .receipt-status { min-height: 46px; margin: 12px 0 0; color: #842c46; }
+.receipt-stamp-space { flex: 0 0 150px; min-height: 164px; display: grid; place-items: center; }
+.receipt-stamp {
+    position: relative;
+    box-sizing: border-box;
+    width: 144px;
+    height: 144px;
+    padding: 22px 10px;
+    border: 4px double currentColor;
+    border-radius: 50%;
+    color: #b52835;
+    text-align: center;
+    transform: rotate(-13deg);
+    opacity: .88;
+    animation: receipt-ink .7s cubic-bezier(.2, .7, .25, 1) both;
+}
+.receipt-stamp::before { content: ''; position: absolute; inset: 5px; border: 1px dashed currentColor; border-radius: inherit; pointer-events: none; }
+.receipt-stamp span, .receipt-stamp strong { display: block; }
+.stamp-label { font-size: 9px; letter-spacing: .8px; }
+.receipt-stamp strong { font-size: 22px; line-height: 1.7; }
+.stamp-signature { font-size: 18px; line-height: 1.35; font-style: italic; }
+.stamp-date { margin-top: 5px; font-size: 10px; letter-spacing: 1px; }
+@keyframes receipt-ink {
+    0% { opacity: 0; transform: translateY(-45px) rotate(-24deg) scale(1.9); filter: blur(3px); }
+    48% { opacity: .96; transform: translateY(3px) rotate(-13deg) scale(.94); filter: blur(0); }
+    68% { transform: translateY(-2px) rotate(-13deg) scale(1.04); }
+    100% { opacity: .88; transform: translateY(0) rotate(-13deg) scale(1); }
+}
+html.letter-is-open { overflow: hidden; }
+@keyframes letter-delivery {
+    0% { transform: translate(-30vw, -45vh) rotate(-24deg); opacity: 0; }
+    15% { opacity: 1; }
+    55% { transform: translate(-9vw, 25px) rotate(14deg); }
+    78% { transform: translate(8px, -12px) rotate(-7deg); }
+    100% { transform: translate(0, 0) rotate(0); }
+}
+@keyframes letter-unfold {
+    from { opacity: 0; transform: translateY(35px) rotate(-2deg) scale(.94); }
+    to { opacity: 1; transform: translateY(0) rotate(0) scale(1); }
+}
+@media (max-width: 600px) {
+    .letter-envelope { top: max(12px, env(safe-area-inset-top)); right: 12px; width: 148px; }
+    .envelope-body { height: 80px; }
+    .envelope-seal { top: 25px; }
+    .envelope-caption { font-size: 12px; margin-top: 10px; }
+    .letter-paper { font-size: 16px; line-height: 1.8; }
+}
+@media (max-width: 420px) {
+    .letter-receipt { flex-direction: column; align-items: stretch; gap: 8px; }
+    .receipt-stamp-space { flex-basis: auto; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .letter-envelope, .love-letter[open], .receipt-stamp { animation: none; }
+    .envelope-note, .envelope-flap { transition: none; }
+}
